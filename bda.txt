@@ -1,0 +1,344 @@
+MongoDB
+> use sana
+switched to db sana
+> db.createCollection("stud");
+{ "ok" : 1 }
+> db.stud.insert({_id:10,age:20,cont_no:23339681,email_id:"ashu@gmail.com"});
+WriteResult({ "nInserted" : 1 })
+> db.stud.insert({_id:20,age:21,cont_no:24339681,email_id:"sana@gmail.com"});
+WriteResult({ "nInserted" : 1 })
+> db.stud.insert({_id:30,age:18,cont_no:24539681,email_id:"jenni@gmail.com"});
+WriteResult({ "nInserted" : 1 })
+> db.stud.insert({_id:40,age:20,cont_no:24537681,email_id:"shub@gmail.com"});
+WriteResult({ "nInserted" : 1 })
+> db.stud.find();
+{ "_id" : 10, "age" : 20, "cont_no" : 23339681, "email_id" : "ashu@gmail.com" }
+{ "_id" : 20, "age" : 21, "cont_no" : 24339681, "email_id" : "sana@gmail.com" }
+{ "_id" : 30, "age" : 18, "cont_no" : 24539681, "email_id" : "jenni@gmail.com" }
+{ "_id" : 40, "age" : 20, "cont_no" : 24537681, "email_id" : "shub@gmail.com" }
+> db.stud.update({_id:30},{$set:{email_id:"jennicutiee@gmail.com"}},{upset:true});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.stud.find();
+{ "_id" : 10, "age" : 20, "cont_no" : 23339681, "email_id" : "ashu@gmail.com" }
+{ "_id" : 20, "age" : 21, "cont_no" : 24339681, "email_id" : "sana@gmail.com" }
+{ "_id" : 30, "age" : 18, "cont_no" : 24539681, "email_id" : "jennicutiee@gmail.com" }
+{ "_id" : 40, "age" : 20, "cont_no" : 24537681, "email_id" : "shub@gmail.com" }
+> db.stud.update({_id:40},{$set:{age:21}},{upset:true});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.stud.find();
+{ "_id" : 10, "age" : 20, "cont_no" : 23339681, "email_id" : "ashu@gmail.com" }
+{ "_id" : 20, "age" : 21, "cont_no" : 24339681, "email_id" : "sana@gmail.com" }
+{ "_id" : 30, "age" : 18, "cont_no" : 24539681, "email_id" : "jennicutiee@gmail.com" }
+{ "_id" : 40, "age" : 21, "cont_no" : 24537681, "email_id" : "shub@gmail.com" }
+> db.stud.drop();
+True
+
+> use sana
+switched to db sana
+> db.createCollection("cust");
+{ "ok" : 1 }
+> db.cust.insert({_id:1,acc_bal:50000,acc_type:"personal"});
+WriteResult({ "nInserted" : 1 })
+> db.cust.insert({_id:2,acc_bal:60000,acc_type:"real"});
+WriteResult({ "nInserted" : 1 })
+> db.cust.insert({_id:3,acc_bal:54000,acc_type:"nominal"});
+WriteResult({ "nInserted" : 1 })
+> db.cust.find().pretty();
+{
+"_id" : 1,
+"acc_bal" : 50000,
+"acc_type" : "personal"
+}
+{
+"_id" : 2,
+"acc_bal" : 60000,
+"acc_type" : "real"
+}
+{
+"_id" : 3,
+"acc_bal" : 54000,
+"acc_type" : "nominal"
+}
+> db.cust.drop();
+true
+> db.cust.find({acc_bal:{$gte:50000},acc_type:"personal"},{_id:1});
+{ "_id" : 1 }
+{ "_id" : 4 }
+> db.cust.find().pretty();
+{ "_id" : 1, "acc_bal" : 50000, "acc_type" : "personal" }
+{ "_id" : 2, "acc_bal" : 60000, "acc_type" : "real" }
+{ "_id" : 3, "acc_bal" : 54000, "acc_type" : "nominal" }
+db.cust.find()
+{ "_id" : 1, "acc_bal" : 50000, "acc_type" : "personal" }
+
+{ "_id" : 2, "acc_bal" : 60000, "acc_type" : "real" }
+{ "_id" : 3, "acc_bal" : 54000, "acc_type" : "nominal" }
+{ "_id" : 4, "acc_bal" : 60000, "acc_type" : "personal" }
+hduser1@bmsce-Precision-T1700:~$ mongoexport --host localhost --db sana --collection stud --csv -fieldFile /home/hduser1/Desktop/field.txt --out /home/hduser1/Desktop/sahana.txt
+2018-12-02T12:15:19.245+0530
+csv flag is deprecated; please use --type=csv instead
+2018-12-02T12:15:19.246+0530
+connected to: localhost
+2018-12-02T12:15:19.246+0530
+exported 4 records
+field.txt
+acc_bal
+output:file.txt
+acc_bal
+50000
+60000
+54000
+60000
+hduser1@bmsce-Precision-T1700:~$ mongoimport --db sana --collection stud --type csv --headerline --file
+/home/hduser1/Desktop/airlines.csv
+2018-12-02T12:19:27.414+0530
+connected to: localhost
+2018-12-02T12:19:27.416+0530
+imported 2 documents
+
+> db.cust.find()
+{ "_id" : 1, "acc_bal" : 50000, "acc_type" : "personal" }
+{ "_id" : 2, "acc_bal" : 60000, "acc_type" : "real" }
+{ "_id" : 3, "acc_bal" : 54000, "acc_type" : "nominal" }
+{ "_id" : 4, "acc_bal" : 60000, "acc_type" : "personal" }
+{ "_id" : ObjectId("5c038077f57245df403edd46"), "Start Date" : "9/5/2011", "Start Time" : "3:00:00 PM",
+"End Date" : "9/5/2011", "End Time" : "", "Event Title" : "Social Studies Dept. Meeting", "All Day Event" :
+"N", "No End Time" : "Y", "Event Description" : "Department meeting", "Contact" : "Chris Gallagher",
+"Contact Email" : "cgallagher@schoolwires.com", "Contact Phone" : "814-555-5179", "Location" : "High
+School", "Category" : 2, "Mandatory" : "N", "Registration" : "N", "Maximum" : 25, "Last Date To Register"
+: "9/2/2011" }
+{ "_id" : ObjectId("5c038077f57245df403edd47"), "Start Date" : "9/5/2011", "Start Time" : "6:00:00 PM",
+"End Date" : "9/5/2011", "End Time" : "8:00:00 PM", "Event Title" : "Curriculum Meeting", "All Day
+Event" : "N", "No End Time" : "N", "Event Description" : "Curriculum Meeting", "Contact" : "Chris
+Gallagher", "Contact Email" : "cgallagher@schoolwires.com", "Contact Phone" : "814-555-5179",
+"Location" : "High School", "Category" : 2, "Mandatory" : "N", "Registration" : "N", "Maximum" : 25,
+"Last Date To Register" : "9/2/2011" }
+db.cust.find().pretty();
+{ "_id" : 1, "acc_bal" : 50000, "acc_type" : "personal" }
+{ "_id" : 2, "acc_bal" : 60000, "acc_type" : "real" }
+{ "_id" : 3, "acc_bal" : 54000, "acc_type" : "nominal" }
+db.cust.find().sort({acc_bal:-1}).limit(1);
+{ "_id" : 2, "acc_bal" : 60000, "acc_type" : "real" }
+> db.cust.find().sort({acc_bal:1}).limit(1);
+{ "_id" : 1, "acc_bal" : 50000, "acc_type" : "personal" }
+
+Cassandra
+cqlsh> CREATE KEYSPACE Employeepavi WITH REPLICATION =
+{'class':'SimpleStrategy','replication_factor':1};
+cqlsh> CREATE TABLE Employeepavi.Employee_Info (Emp_ID int PRIMARY KEY, EmpName text,
+Designation text,DateOfJoining timestamp, Salary float,Dept_Name text);
+cqlsh>BEGIN BATCH INSERT INTO
+Employeepavi.Employee_Info(Emp_Id,EmpName,Designation,DateOfJoining,salary,Dept_Name)VALUES
+(1,'Shubha','Software Engineer','2012-03-12',25550,'Development') INSERT INTO
+Employeepavi.Employee_Info(Emp_Id,EmpName,Designation,DateOfJoining,salary,Dept_Name)VALUES
+(2,'Pavithra','Software Engineer','2012-03-12',25550,'Development') APPLY BATCH;
+cqlsh>cqlsh:employeepavi> SELECT * FROM Employee_info;
+emp_id | dateofjoining
+| dept_name | designation
+| empname | salary
+------+---------------------------------+-------------+-------------------+----------+-------1 | 2012-03-11 18:30:00.000000+0000 | Development | Software Engineer | Shubha | 25550
+2 | 2012-03-11 18:30:00.000000+0000 | Development | Software Engineer | Pavithra | 25550
+(2 rows)
+cqlsh:employeepavi> UPDATE Employee_info SET EmpName='Meghana',Dept_Name='tesing' WHERE
+Emp_ID=1;
+cqlsh:employeepavi> SELECT * FROM Employee_info;
+emp_id | dateofjoining
+| dept_name | designation
+| empname | salary
+--------+---------------------------------+-------------+-------------------+----------+-------1 | 2012-03-11 18:30:00.000000+0000 | tesing | Software Engineer | Meghana | 25550
+2 | 2012-03-11 18:30:00.000000+0000 | Development | Software Engineer | Pavithra | 25550
+(2 rows)
+cqlsh:employeepavi> ALTER TABLE Employee_info ADD projects set<text>;
+cqlsh:employeepavi> DESCRIBE Employee_info;
+CREATE TABLE employeepavi.employee_info (
+emp_id int PRIMARY KEY, dateofjoining timestamp,dept_name text,designation text, empname
+text,projects set<text>, salary float ) WITH bloom_filter_fp_chance = 0.01
+AND caching = {'keys': 'ALL', 'rows_per_partition': 'NONE'}
+AND comment = ''
+AND compaction = {'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy',
+'max_threshold': '32', 'min_threshold': '4'}
+AND compression = {'chunk_length_in_kb': '64', 'class':
+'org.apache.cassandra.io.compress.LZ4Compressor'}
+AND crc_check_chance = 1.0
+AND dclocal_read_repair_chance = 0.1
+AND default_time_to_live = 0
+AND gc_grace_seconds = 864000
+AND max_index_interval = 2048
+AND memtable_flush_period_in_ms = 0
+AND min_index_interval = 128
+AND read_repair_chance = 0.0
+AND speculative_retry = '99PERCENTILE';
+
+cqlsh:employeepavi> UPDATE Employee_info SET Projects=Projects+{'abc','xyz'}WHERE Emp_ID=1;
+cqlsh:employeepavi> select * from Employee_info;
+emp_id | dateofjoining
+| dept_name | designation
+| empname | projects
+| salary
+--------+---------------------------------+-------------+-------------------+----------+----------------+-------1 | 2012-03-11 18:30:00.000000+0000 | tesing | Software Engineer | Meghana | {'abc', 'xyz'} | 25550
+2 | 2012-03-11 18:30:00.000000+0000 | Development | Software Engineer | Pavithra |
+null | 25550
+(2 rows)
+cqlsh:employeepavi> SELECT TTL(EmpName) FROM Employee_Info WHERE Emp_Id=3;
+ttl(empname)
+------------(0 rows)
+cqlsh:students17> select * from Stud_Info;
+
+roll_no | dateofjoining
+| last_exam_percent | studname
+---------+---------------------------------+-------------------+---------5 | 2012-03-11 18:30:00.000000+0000 |
+67.9 |
+Smitha
+1 | 2012-03-11 18:30:00.000000+0000 |
+79.9 |
+Asha
+2 | 2012-03-11 18:30:00.000000+0000 |
+89.9 |
+Krian
+4 | 2012-03-11 18:30:00.000000+0000 |
+90.9 |
+Samrth
+6 | 2012-03-11 18:30:00.000000+0000 |
+56.9 |
+Rohan
+3 | 2012-03-11 18:30:00.000000+0000 |
+78.9 |
+Tarun
+(6 rows)
+cqlsh:students17>
+COPY Stud_Info(Roll_No, StudName, DateOfJoining,
+last_exam_Percent) TO '/home/bmsce/Desktop/ms.csv';
+Using 3 child processes
+Starting copy of students17.stud_info with columns [roll_no, studname,
+dateofjoining, last_exam_percent].
+Processed: 6 rows; Rate:
+54 rows/s; Avg. rate:
+54 rows/s
+6 rows exported to 1 files in 0.115 seconds.
+cqlsh:students17> truncate Stud_Info;
+cqlsh:students17> select * from Stud_Info;
+roll_no | dateofjoining | last_exam_percent | studname
+---------+---------------+-------------------+---------(0 rows)
+cqlsh:students17> COPY Stud_Info(Roll_No, StudName, DateOfJoining,
+last_exam_Percent) FROM '/home/bmsce/Desktop/ms.csv';
+Using 3 child processes
+Starting copy of students17.stud_info with columns [roll_no, studname,
+dateofjoining, last_exam_percent].
+Processed: 6 rows; Rate:
+12 rows/s; Avg. rate:
+17 rows/s
+6 rows imported from 1 files in 0.360 seconds (0 skipped).
+cqlsh:students17> select * from Stud_Info;
+roll_no | dateofjoining
+| last_exam_percent | studname
+---------+---------------------------------+-------------------+---------5 | 2012-03-11 18:30:00.000000+0000 |
+67.9 |
+Smitha
+1 | 2012-03-11 18:30:00.000000+0000 |
+79.9 |
+Asha
+2 | 2012-03-11 18:30:00.000000+0000 |
+89.9 |
+Krian
+4 | 2012-03-11 18:30:00.000000+0000 |
+90.9 |
+Samrth
+6 | 2012-03-11 18:30:00.000000+0000 |
+56.9 |
+Rohan
+3 | 2012-03-11 18:30:00.000000+0000 |
+78.9 |
+Tarun
+(6 rows)
+
+Hadoop
+
+Hive
+hive> create external table employee(emp_id int,emp_name string,salary float,designation string) row
+format delimited fields terminated by '\t' location '/employee_info';
+OK
+Time taken: 0.416 seconds
+hive> load data local inpath '/home/bmsce/Desktop/employee.tsv' overwrite into table employee;
+Loading data to table default.employee
+OK
+Time taken: 0.844 seconds
+hive> select * from employee;
+OK
+1
+
+A
+
+10000.0
+
+se
+
+2
+
+B
+
+2000.0
+
+se
+
+3
+
+c
+
+40000.0
+
+se
+
+Time taken: 0.499 seconds, Fetched: 3 row(s)
+hive> create view employee_view as select emp_id,emp_name,salary,designation from employee where
+salary>30000;
+OK
+Time taken: 0.12 seconds
+hive> select * from employee_view;
+OK
+3
+
+c
+
+40000.0
+
+se
+
+Time taken: 0.241 seconds, Fetched: 1 row(s)
+hive> alter table employee add columns (dept_id int );
+OK
+Time taken: 0.11 seconds
+hive> select * from employee ;
+OK
+1
+
+A
+
+10000.0
+
+se
+
+NULL
+
+2
+
+B
+
+2000.0
+
+se
+
+NULL
+
+3
+
+c
+
+40000.0
+
+se
+
+NULL
+
+Time taken: 0.122 seconds, Fetched: 3 row(s)
+
+
